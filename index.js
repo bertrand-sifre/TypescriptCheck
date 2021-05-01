@@ -13,7 +13,7 @@ const
 
 const
 	cwd = process.cwd(),
-	cliArgs = arg({'--tsconfig-filename': String, '--max-errors': Number}, {permissive: true}),
+	cliArgs = arg({ '--tsconfig-filename': String, '--max-errors': Number }, { permissive: true }),
 	typescriptConfigFilename = cliArgs['--tsconfig-filename'] || defaultTypescriptConfigFilename,
 	pathToTypescriptConfig = path.join(cwd, typescriptConfigFilename),
 	typescriptConfigExists = fs.existsSync(pathToTypescriptConfig);
@@ -25,7 +25,7 @@ if (!typescriptConfigExists) {
 	log.setFailed(`Config file ${typescriptConfigFilename} doesn't exists in ${cwd}`);
 
 } else {
-	tsconfigFile = ts.readJsonConfigFile(pathToTypescriptConfig, (path) => fs.readFileSync(path, {encoding: 'utf-8'}));
+	tsconfigFile = ts.readJsonConfigFile(pathToTypescriptConfig, (path) => fs.readFileSync(path, { encoding: 'utf-8' }));
 }
 
 const config = ts.parseJsonSourceFileConfigFileContent(
@@ -48,7 +48,7 @@ const formatConfig = {
 log.info(`${typescriptConfigFilename} has been successfully parsed`);
 
 const
-	typescriptProgram = ts.createProgram(config.fileNames, config.options);
+	typescriptProgram = ts.createProgram(config.fileNames, { ...config.options, noEmit: true });
 
 log.info('Typescript program has been created');
 
