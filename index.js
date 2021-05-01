@@ -48,7 +48,7 @@ const formatConfig = {
 log.info(`${typescriptConfigFilename} has been successfully parsed`);
 
 const
-	typescriptProgram = ts.createProgram(config.fileNames, { ...config.options, noEmit: true });
+	typescriptProgram = ts.createProgram(config.fileNames, { ...config.options, noEmit: true, maxNodeModuleJsDepth: 1 });
 
 log.info('Typescript program has been created');
 
